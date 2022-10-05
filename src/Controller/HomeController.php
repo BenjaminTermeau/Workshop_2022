@@ -6,9 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 
 class HomeController extends AbstractController
 {
+
+    private HttpClientInterface $client;
+
+    public function __construct(
+        HttpClientInterface $client
+    ) {
+        $this->client = $client;
+    }
     /**
      * @Route("/", name="redirect")
      */
@@ -37,6 +48,16 @@ class HomeController extends AbstractController
      */
     public function zone(): Response
     {
-        return $this->render('exploitation.html.twig');
+        $request = $this->client->request(
+            Request::METHOD_GET,
+            'http://localhost:7999/data'
+        );
+
+        return $this->render(
+            'exploitation.html.twig',
+            [
+                'data' => json_decode($request->getContent(), true)
+            ]
+        );
     }
 }
