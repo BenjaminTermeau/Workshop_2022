@@ -1,45 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}AQUANET{% endblock %}</title>
-        <style>
-            img {
-                height:120px;
-                width:180px;
-                margin-left:44%;
-                margin-right:auto;
-            }
-
-            p {
-                text-align:center;
-            }
-
-            #test {
-                text-align:center;
-                margin:20px;
-            }
-
-            #button, #button2, #button3 {
-                padding-left:70px;
-                padding-right:70px;
-                padding-top:7px;
-                padding-bottom:7px;
-            }
-        </style>
-    </head>
+{% extends "base.html.twig" %}
+{% block body %}
     <body>
         <div>
             <img src="images/logo_workshop.png" alt="logo" style/>
         </div>
         <div id="test">
-            <input id="button" type="button" value="Parc 1">
+            <a id="button" class="button is-link" value="Parc 1">Parc 1</a>
         </div>
         <div id="test">
-            <input id="button2" type="button" value="Parc 2">
+            <a id="button2" class="button is-link" value="Parc 2">Parc 2</a>
         </div>
         <div id="test">
-            <input id="button3" type="button" value="Parc 3">
+            <a id="button3" class="button is-link" value="Parc 3">Parc 3</a>
         </div>
 
         <script>
@@ -56,3 +28,4 @@
             }
         </script>
     </body>
+{% endblock %}

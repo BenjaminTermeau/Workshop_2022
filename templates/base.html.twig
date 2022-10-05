@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>AQUANET</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <style>
+            img {
+                height:120px;
+                width:180px;
+                margin-left:44%;
+                margin-right:auto;
+            }
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+            p {
+                text-align:center;
+            }
+
+            #test {
+                text-align:center;
+                margin:20px;
+            }
+
+            #button, #button2, #button3 {
+                padding-left:70px;
+                padding-right:70px;
+                padding-top:7px;
+                padding-bottom:7px;
+            }
+
+            #meteo {
+                text-align:center;
+            }
+        </style>
     </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+        {% block body %}
+        {% endblock %}
 </html>
