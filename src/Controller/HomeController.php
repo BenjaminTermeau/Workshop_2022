@@ -2,23 +2,23 @@
 
 namespace App\Controller;
 
+use App\Service\DataService as ServiceDataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\src\Service\DataService;
 
 
 class HomeController extends AbstractController
 {
-
-    private HttpClientInterface $client;
+    private ServiceDataService $dataService;
 
     public function __construct(
-        HttpClientInterface $client
+        ServiceDataService $dataService
     ) {
-        $this->client = $client;
+        $this->dataService = $dataService;
     }
     /**
      * @Route("/", name="redirect")
@@ -48,15 +48,17 @@ class HomeController extends AbstractController
      */
     public function zone(): Response
     {
-        $request = $this->client->request(
-            Request::METHOD_GET,
-            'http://localhost:7999/data'
-        );
+        $data = $this->dataService->getData();
+        $etatFilet = $this->dataService->getEtatFilet();
+
+        $données = json_decode($data->getContent(), true);
 
         return $this->render(
             'exploitation.html.twig',
             [
-                'data' => json_decode($request->getContent(), true)
+                'data' => $données,
+                'vitesse' => explode(' ', $données['vitesse_vent'])[0],
+                'etatFilet' => json_decode($etatFilet->getContent(), true)['etatFilet']
             ]
         );
     }

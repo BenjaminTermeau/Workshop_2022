@@ -2,15 +2,31 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DataService
 {
-    public function getData(): JsonResponse
+    private $client;
+
+    public function __construct(HttpClientInterface $client)
     {
-        return $request = $this->client->request(
+        $this->client = $client;
+    }
+
+    public function getData()
+    {
+        return $this->client->request(
             Request::METHOD_GET,
             'http://127.0.0.1:7999/data'
+        );
+    }
+
+    public function getEtatFilet()
+    {
+        return $this->client->request(
+            Request::METHOD_GET,
+            'http://127.0.0.1:7999/etatFilet'
         );
     }
 }
